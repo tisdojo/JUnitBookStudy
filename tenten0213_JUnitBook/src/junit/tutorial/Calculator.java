@@ -11,7 +11,15 @@ public class Calculator {
     public int multiply(int x, int y) {
         return x * y;
     }
-    public float divide(float x, float y) {
+
+    public float divideWithFloat(float x, float y) {
+        return x / y;
+    }
+
+    public int divideWithInt(int x, int y) {
+        if (y == 0) {
+            throw new IllegalArgumentException("0除算です。");
+        }
         return x / y;
     }
 }

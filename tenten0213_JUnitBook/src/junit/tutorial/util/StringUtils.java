@@ -12,9 +12,10 @@ public class StringUtils {
     public static String toSnakeCase(String text) {
         StringBuilder stb = new StringBuilder(text);
         for (int i = 1; i < text.length(); i++ ) {
-            if (Character.isUpperCase(text.charAt(i))) {
-                stb.insert(i, '_');
+            if (!Character.isUpperCase(text.charAt(i))) {
+                continue;
             }
+            stb.insert(i, '_');
         }
         return stb.toString().toLowerCase();
     }

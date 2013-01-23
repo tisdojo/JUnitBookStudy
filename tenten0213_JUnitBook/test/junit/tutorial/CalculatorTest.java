@@ -22,11 +22,24 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testDivide() throws Exception {
+    public void divideWithFloatで3と2の除算結果が取得できること() throws Exception {
         Calculator calc = new Calculator();
         float expected = 1.5f;
-        float actual = calc.divide(3,2);
+        float actual = calc.divideWithFloat(3,2);
         assertThat(actual,is(expected));
+    }
 
+    @Test
+    public void divideWithIntで3と2の除算結果が取得できること() throws Exception {
+        Calculator calc = new Calculator();
+        int expected = 1;
+        int actual = calc.divideWithInt(3,2);
+        assertThat(actual,is(expected));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void divideWithIntの第2引数に0を指定すると例外が発生する() throws Exception {
+        Calculator calc = new Calculator();
+        calc.divideWithInt(3,0);
     }
 }
