@@ -8,8 +8,9 @@ package junit.tutorial;
  * To change this template use File | Settings | File Templates.
  */
 public class Counter {
+    int counter = 0;
+
     public int increment(){
-        int hoge = 1;
-        return hoge;
+        return ++counter;
     }
 }

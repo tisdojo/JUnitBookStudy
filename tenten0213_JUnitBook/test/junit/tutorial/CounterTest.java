@@ -16,9 +16,25 @@ import static org.junit.Assert.*;
 public class CounterTest {
 
     @Test
-    public void testIncrement() throws Exception {
+    public void 初期状態でincrementメソッドを実行すると1が取得できる() throws Exception {
         Counter counter = new Counter();
-        assertThat(1,is(counter.increment()));
+        assertThat(counter.increment(),is(1));
+    }
+
+    @Test
+    public void incrementメソッドを1回実行した状態でincrementメソッドを実行すると2が取得できる() throws Exception {
+        Counter counter = new Counter();
+        counter.increment();
+        assertThat(counter.increment(),is(2));
+    }
+
+    @Test
+    public void incrementメソッドを50回実行した状態でincrementメソッドを実行すると51が取得できる() throws Exception {
+        Counter counter = new Counter();
+        for (int i = 0; i < 50; i++) {
+            counter.increment();
+        }
+        assertThat(counter.increment(),is(51));
     }
 
 }
