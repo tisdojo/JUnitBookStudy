@@ -1,5 +1,9 @@
 #!/bin/bash
 
 junit_jar=/usr/share/java/junit4.jar
+test_class=`find test | grep groovy$ | tr '\n' ' '`
 groovyc `find main | grep groovy$`
-groovy -classpath $junit_jar:. `find test | grep groovy$`
+for test in `find test | grep groovy$`
+do
+  groovy -classpath $junit_jar:. $test
+done
