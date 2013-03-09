@@ -43,6 +43,61 @@ class IsDateTest {
 		assertFalse(matcher.matches(afterDay))
 	}
 
+	@Test void testTypeSafe() {
+       UnkownType typeTest = new UnkownType()
+       IsDate matcher = dateOf(1999, 1, 1)
+       assertFalse(matcher.matches(typeTest))
+
+	}
+	
+	private static class UnkownType{
+		String toString() {
+			return "UnkownType object."
+		}
+	}
+	
+	@Test void testNullSafe() {
+		IsDate matcher = dateOf(1999, 1, 1)
+		assertFalse(matcher.matches(null))
+	}
+
+	@Test void testDescription() {
+		try {
+			assertThat(dateWith(1998, 1, 1), dateOf(1999, 1, 1))
+			fail('test not failed')
+		} catch (AssertionError e) {
+			assertEquals("unmathced description.", e.getMessage(), "\nExpected: 1999/01/01 but actual is 1998/01/01\n     got: <Thu Jan 01 00:00:00 JST 1998>\n")
+		}
+	}
+
+	@Test void testDescriptionNullValue() {
+		try {
+			assertThat(null, dateOf(1999, 1, 1))
+			fail('test not failed')
+		} catch (AssertionError e) {
+		    assertEquals("null value description.", e.getMessage(), "\nExpected: 1999/01/01\n     got: null\n")
+        }	
+	}
+
+	@Test void testDescriptionUnmatchedType() {
+		try {
+			assertThat(new UnkownType(), dateOf(1999,1,1))
+			fail('test not failed')
+		} catch (AssertionError e) {
+			assertEquals('unmathced type description', e.getMessage(), "\nExpected: 1999/01/01\n     got: <UnkownType object.>\n")
+		}
+
+	}
+
+	@Test
+	@Ignore void testNullValueDescription() {
+		try {
+			assertThat(null, dateOf(1999, 1, 2))
+		} catch (AssertionError e) {
+
+		}
+	}
+
 	private static Date dateWith(int year, int month, int dayOfMonth) {
 		return new GregorianCalendar(year, month - 1, dayOfMonth).getTime();
 	}

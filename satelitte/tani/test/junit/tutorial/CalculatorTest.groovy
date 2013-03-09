@@ -15,5 +15,6 @@ class CalculatorTest {
     assertThat(testee.multiply(Integer.MAX_VALUE, 2), is(-2))
   }
 
+
 } 
 
