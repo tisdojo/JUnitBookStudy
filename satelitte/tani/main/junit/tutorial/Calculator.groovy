@@ -7,7 +7,7 @@ package junit.tutorial
  */
 class Calculator {
 
-  int multiply(int x,int y) {
+  static int multiply(int x,int y) {
     return x * y
   }
 }
