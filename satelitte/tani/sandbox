@@ -1,4 +1,0 @@
-#!/bin/bash
-
-junit_jar=/usr/share/java/junit4.jar
-groovy -classpath $junit_jar:. test/junit/tutorial/SandBox.groovy 
