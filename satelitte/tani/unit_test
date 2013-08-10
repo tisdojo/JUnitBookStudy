@@ -3,9 +3,7 @@
 junit_jar=/usr/share/java/junit4.jar
 test_class=`find test | grep groovy$ | tr '\n' ' '`
 target_class=`find main | grep groovy$`
-if [-i dist]; then
-   mkdir dist
-fi
+mkdir dist
 for target in $target_class
 do
   echo $target is compiled
