@@ -6,29 +6,38 @@ import static org.junit.Assert.*
 import static org.hamcrest.CoreMatchers.*
 import org.junit.rules.Timeout
 import org.junit.rules.ExpectedException
+import org.junit.runner.RunWith
+import org.junit.experimental.runners.Enclosed
 /*	
  * Rule of Timeout Test
  */
 class TimeoutTest {
-    @Rule
-    public static Timeout timeout = new Timeout(100)
-    @Rule
-    public static ExpectedException ex = ExpectedException.none()
-
     @Test 
     void testNotTimeOut() {
       Testee.notTimeOut()
     }
 
-    @Test
-    void testNotTimeOutOveride() {
-      timeout = new Timeout(1000)
+    @Rule
+    public static Timeout timeout = new Timeout(100)
+    @Rule
+    public static ExpectedException exception = ExpectedException.none()
+
+    @Test(timeout = 500L)
+    void testTimeOutRuleCanNotOverrideOnTestAnnotate() {
+      exception.expect(Exception.class)
+      exception.expectMessage("test timed out after 100 milliseconds")
       Testee.timeOut()
     }
 
-    void testTimeoutRuleThanTestAnnotation() {
-
+    @Test
+    void testTimeOutRuleCanNotOverideInnerSetup() {
+      timeout = new Timeout(1000)
+      exception.expect(Exception.class)
+      exception.expectMessage("test timed out after 100 milliseconds")
+      Testee.timeOut()
     }
+
+    
 } 
 
 class Testee {

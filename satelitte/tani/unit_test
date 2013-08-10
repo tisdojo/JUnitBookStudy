@@ -2,8 +2,18 @@
 
 junit_jar=/usr/share/java/junit4.jar
 test_class=`find test | grep groovy$ | tr '\n' ' '`
-groovyc `find main | grep groovy$`
+target_class=`find main | grep groovy$`
+if [-i dist]; then
+   mkdir dist
+fi
+for target in $target_class
+do
+  echo $target is compiled
+  groovyc -d dist $target
+done
+
 for test in `find test | grep groovy$`
 do
-  groovy -classpath $junit_jar:. $test
+  echo $test is run ...
+  groovy -classpath $junit_jar:dist $test
 done
